@@ -8,6 +8,12 @@ from PIL import Image
 import sys
 
 
+def hex_to_rgb(value):
+    value = value.lstrip('#')
+    lv = len(value)
+    return tuple(int(value[i:i + lv // 3], 16)/255.0 for i in range(0, lv, lv // 3))
+
+
 def bgra_surf_to_rgba_string(cairo_surface):
     # We use PIL to do this
     img = Image.frombuffer(

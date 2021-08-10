@@ -1,4 +1,4 @@
-from init import *
+from demo1_init import *
 from pygarios import *
 from random import random, randint, shuffle
 from collections import deque
