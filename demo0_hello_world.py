@@ -32,7 +32,7 @@ def update():
     strokeWeight(3.0)
 
 
-    
+
 
     if mousePressed:
         stroke(0, .5, 1)
