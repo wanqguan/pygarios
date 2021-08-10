@@ -18,9 +18,7 @@ def update():
     pygame_process_events(pygame.event.get())  # pyplay 特殊语法
 
     background(1, 1, 1)
-    
     strokeWeight(3.0)
-
     PfontSize(50)
 
     for xi in range(8):
@@ -31,7 +29,6 @@ def update():
 
             fill(0, 1, 0)
             Ptext(str(max(xi, yi)), xi*100, yi*100+40)
-
 
     if mousePressed:
         stroke(0, .5, 1)
