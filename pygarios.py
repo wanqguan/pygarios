@@ -9,12 +9,22 @@ import sys
 
 
 def hex_to_rgb(value):
+    """将十六进制的颜色转换为RGB表示
+
+    Args:
+        value (str): 十六进制的颜色的字符串表示，如：“#FF00FF”
+
+    Returns:
+        (float, float, float): [颜色的RGB表示]
+    """
     value = value.lstrip('#')
     lv = len(value)
     return tuple(int(value[i:i + lv // 3], 16)/255.0 for i in range(0, lv, lv // 3))
 
 
 def bgra_surf_to_rgba_string(cairo_surface):
+    """ pygarios 内置函数
+    """
     # We use PIL to do this
     img = Image.frombuffer(
         'RGBA', (cairo_surface.get_width(),
@@ -24,6 +34,11 @@ def bgra_surf_to_rgba_string(cairo_surface):
 
 
 def Prandom(*arg):
+    """Processing风格实用函数， 随机数：生成指定范围内的随机数
+
+    Returns:
+        float: 生成的随机数
+    """
     if len(arg) == 1:
         return random() * arg[0]
     else:
@@ -32,6 +47,11 @@ def Prandom(*arg):
 
 
 def Pconstrain(amt, low, high):
+    """Processing风格实用函数，限制：将一个数amt限制在指定范围（low, high）内。
+
+    Returns:
+        float: 应用限制后的数
+    """
     if amt < low:
         return low
     if amt > high:
@@ -40,6 +60,11 @@ def Pconstrain(amt, low, high):
 
 
 def Pmap(value, start1, stop1, start2, stop2):
+    """Processing风格实用函数，映射：将一个数amt从指定范围（start1, stop1）线性映射到范围（start2, stop2）内对应位置。
+
+    Returns:
+        float: 应用映射后的数
+    """
     k = (stop2 - start2) / (stop1 - start1)
     return start2 + (value - start1) * k
 
@@ -64,10 +89,18 @@ def init_ctx(ctx2, w, h):
 
 
 def main(start, update, w, h):
+    """pygarios 的主函数
+
+    Args:
+        start (func): 程序开始时运行该函
+        update (func): 程序开始后自动重复运行该函数
+        w (int): 窗口宽度设置
+        h (int): 窗口高度设置
+    """
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
     pygame.init()
     pygame.display.set_mode((w//4*3, h//4*3))
-    pygame.display.set_caption('Pygarios demo')
+    pygame.display.set_caption('Pygarios demo')  # 窗口标题
     pygame.key.set_repeat(1, 10)
     screen = pygame.display.get_surface()
 
@@ -137,22 +170,34 @@ def strokeWeight(k):
 
 
 def noStroke():
+    """Processing风格绘图函数，设置填充色为空。
+    """
     global Pstroke
     Pstroke = False
 
 
 def stroke(*arg):
+    """Processing风格绘图函数，指定轮廓色
+    Args:
+        arg (r, g, b): 颜色的RGB表示，范围从0-1。
+    """
     global Pstroke, Pstrokecolor
     Pstroke = True
     Pstrokecolor = arg
 
 
 def noFill():
+    """Processing风格绘图函数，设置填充色为空。
+    """
     global Pfill
     Pfill = False
 
 
 def fill(*arg):
+    """Processing风格绘图函数，指定填充色
+    Args:
+        arg (r, g, b): 颜色的RGB表示，范围从0-1。
+    """
     global Pfill, Pfillcolor
     Pfill = True
     Pfillcolor = arg
@@ -160,6 +205,13 @@ def fill(*arg):
 
 
 def circle(x, y, r):
+    """Processing风格绘图函数, 画一个圆
+
+    Args:
+        x (float): x 方向位置
+        y (float): y 方向位置
+        r (float): 圆的半径
+    """
     if Pfill:
         if len(Pfillcolor) == 3:
             ctx.set_source_rgb(*Pfillcolor)
@@ -177,6 +229,14 @@ def circle(x, y, r):
 
 
 def rect(x, y, a, b):
+    """Processing风格绘图函数, 画一个方形
+
+    Args:
+        x (float): x 方向位置
+        y (float): y 方向位置
+        a (float): 方形的 x方向长度
+        b (float): 方形的 y方向长度
+    """
     x /= width
     y /= height
     a /= width
@@ -199,6 +259,14 @@ def rect(x, y, a, b):
 
 
 def line(x1, y1, x2, y2):
+    """Processing风格绘图函数, 画一个线段
+
+    Args:
+        x1 (float): x from
+        y1 (float): y from
+        x2 (float): x to
+        y2 (float): y to
+    """
     if Pstroke:
         if len(Pstrokecolor) == 3:
             ctx.set_source_rgb(*Pstrokecolor)
@@ -210,6 +278,8 @@ def line(x1, y1, x2, y2):
 
 
 def background(*c):
+    """Processing风格绘图函数, 使用颜色c绘制背景
+    """
     if len(c) == 3:
         ctx.set_source_rgb(*c)
     elif len(c) == 4:
@@ -219,11 +289,20 @@ def background(*c):
 
 
 def load_image(fpath):
+    """Processing风格渲染函数, 从指定路径fpath加载图片
+    """
     return cairo.ImageSurface.create_from_png(fpath)
 
 
 def draw_image(image, x, y, w, h):
-    """Draw a scaled image on a given context."""
+    """Draw a scaled image on a given context.
+    Args:
+        image (image): 加载过的图片
+        x (float): x 方向位置
+        y (float): y 方向位置
+        a (float): 图片的 x方向长度
+        b (float): 图片的 y方向长度
+    """
     x /= width
     y /= height
     w /= width
