@@ -135,12 +135,20 @@ def update_mouse_state_from_pygame_events(events):
 
 
 def PfontSize(k):
+    """Processing风格画图设置函数，设置字体显示时的大小"""
     ctx.select_font_face("Purisa", cairo.FONT_SLANT_NORMAL,
                          cairo.FONT_WEIGHT_BOLD)
     ctx.set_font_size(k/width)
 
 
 def Ptext(text, x, y):
+    """画出指定文字
+
+    Args:
+        text (str): 指定文字
+        x (float): x方向位置
+        y (float): y方向位置
+    """
     if len(Pfillcolor) == 3:
         ctx.set_source_rgb(*Pfillcolor)
     elif len(Pfillcolor) == 4:
@@ -150,22 +158,27 @@ def Ptext(text, x, y):
 
 
 def translate(x, y):
+    """Processing风格渲染设置函数，位移"""
     ctx.translate(x/width, y/height)
 
 
 def rotate(angle):
+    """Processing风格渲染设置函数，旋转"""
     ctx.rotate(angle)
 
 
 def pushMatrix():
+    """Processing风格渲染设置函数，压入上下文？怎么解释合适"""
     ctx.save()
 
 
 def popMatrix():
+    """Processing风格渲染设置函数，弹出上下文？怎么解释合适"""
     ctx.restore()
 
 
 def strokeWeight(k):
+    """Processing风格绘图函数，指定轮廓宽度"""
     ctx.set_line_width(k/width)
 
 
@@ -323,6 +336,8 @@ def draw_image(image, x, y, w, h):
 
 
 class PVector(Vector2):
+    """Processing风格实用函数, 封装二维向量的表示和计算
+    """
     def __init__(self, x, y):
         super().__init__(x, y)
 
@@ -363,6 +378,7 @@ class PVector(Vector2):
 
 
 def gradient_cricle(x, y, r):
+    "实验功能，绘制渐近色填充的圆形，可尝试使用"
     pat = cairo.RadialGradient(x/width+r/width/10, y/height+r/width/10, r/width/5,
                                x/width+r/width/3, y/height+r/width/3, r/width)
     pat.add_color_stop_rgba(0, 1, 1, 1, 1)
@@ -385,6 +401,7 @@ def gradient_cricle(x, y, r):
 
 
 def gradient_rect(x, y, a, b, GradientDarkColor):
+    "实验功能，绘制渐近色填充的方形，可尝试使用"
     x /= width
     y /= height
     a /= width
@@ -414,6 +431,7 @@ def gradient_rect(x, y, a, b, GradientDarkColor):
 
 
 def two_border_Ptext(text, x, y, TextBorderColor):
+    "实验功能，绘制带轮廓的文字，可尝试使用"
     ctx.move_to(x/width, y/height)
     ctx.text_path(text)
     if len(Pfillcolor) == 3:
