@@ -67,7 +67,7 @@ def main(start, update, w, h):
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
     pygame.init()
     pygame.display.set_mode((w//4*3, h//4*3))
-    pygame.display.set_caption('Pyplay demo')
+    pygame.display.set_caption('Pygarios demo')
     pygame.key.set_repeat(1, 10)
     screen = pygame.display.get_surface()
 
