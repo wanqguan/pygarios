@@ -119,6 +119,7 @@ def main(start, update, w, h):
 
 
 def update_mouse_state_from_pygame_events(events):
+    """处理鼠标响应，更新全局变量 mouseX, mouseY, mousePressed 的值。"""
     mousePressed = False
     mouseX, mouseY = 0, 0
     for event in events:
@@ -285,8 +286,8 @@ def line(x1, y1, x2, y2):
             ctx.set_source_rgb(*Pstrokecolor)
         elif len(Pstrokecolor) == 4:
             ctx.set_source_rgba(*Pstrokecolor)
-            ctx.move_to(x1/width, y1/height)
-            ctx.line_to(x2/width, y2/height)
+        ctx.move_to(x1/width, y1/height)
+        ctx.line_to(x2/width, y2/height)
         ctx.stroke()
 
 
@@ -336,7 +337,7 @@ def draw_image(image, x, y, w, h):
 
 
 class PVector(Vector2):
-    """Processing风格实用函数, 封装二维向量的表示和计算
+    """Processing风格实用类, 封装二维向量的表示和计算
     """
     def __init__(self, x, y):
         super().__init__(x, y)
